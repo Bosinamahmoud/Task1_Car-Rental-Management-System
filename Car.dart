@@ -8,7 +8,7 @@ abstract class Car {
 
   void displayCarDetails();
   double calculateCost(int numberOfDays);
-  
+
   void setAvailability(bool avail) {
     availability = avail;
   }
@@ -26,7 +26,7 @@ class EconomyCar extends Car {
 
   @override
   void displayCarDetails() {
-    print(""" 
+    print("""
     Car ID: $carId
     Year: $year
     Rental Price per Day: \$$rentalPricePerDay
@@ -39,7 +39,8 @@ class EconomyCar extends Car {
 class SportsCar extends Car {
   double luxuryFee;
 
-  SportsCar(int carId, int year, double rentalPricePerDay, bool availability, this.luxuryFee)
+  SportsCar(int carId, int year, double rentalPricePerDay, bool availability,
+      this.luxuryFee)
       : super(carId, year, rentalPricePerDay, availability);
 
   @override
@@ -49,7 +50,7 @@ class SportsCar extends Car {
 
   @override
   void displayCarDetails() {
-    print(""" 
+    print("""
     Car ID: $carId
     Year: $year
     Rental Price per Day: \$$rentalPricePerDay
@@ -64,7 +65,8 @@ class ElectricCar extends Car {
   int chargingCapacity;
   double chargingFees;
 
-  ElectricCar(int carId, int year, double rentalPricePerDay, bool availability, this.chargingCapacity, this.chargingFees)
+  ElectricCar(int carId, int year, double rentalPricePerDay, bool availability,
+      this.chargingCapacity, this.chargingFees)
       : super(carId, year, rentalPricePerDay, availability);
 
   @override
@@ -74,7 +76,7 @@ class ElectricCar extends Car {
 
   @override
   void displayCarDetails() {
-    print(""" 
+    print("""
     Car ID: $carId
     Year: $year
     Rental Price per Day: \$$rentalPricePerDay
@@ -84,5 +86,3 @@ class ElectricCar extends Car {
     """);
   }
 }
-
-
