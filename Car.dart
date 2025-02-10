@@ -27,20 +27,17 @@ class EconomyCar extends Car {
   @override
   void displayCarDetails() {
     print("""
-    Car ID: $carId
-    Year: $year
-    Rental Price per Day: \$$rentalPricePerDay
-    Availability: $availability
+    Car ID: $carId , Year: $year , Rental Price per Day: \$$rentalPricePerDay , Availability: $availability
     """);
   }
 }
 
 // SportsCar class
 class SportsCar extends Car {
-  double luxuryFee;
+  double luxuryFee=10;
 
   SportsCar(int carId, int year, double rentalPricePerDay, bool availability,
-      this.luxuryFee)
+     )
       : super(carId, year, rentalPricePerDay, availability);
 
   @override
@@ -51,11 +48,7 @@ class SportsCar extends Car {
   @override
   void displayCarDetails() {
     print("""
-    Car ID: $carId
-    Year: $year
-    Rental Price per Day: \$$rentalPricePerDay
-    Availability: $availability
-    Luxury Fee: \$$luxuryFee
+    Car ID: $carId , Year: $year , Rental Price per Day: \$$rentalPricePerDay , Availability: $availability , Luxury Fee: \$$luxuryFee
     """);
   }
 }
@@ -63,10 +56,10 @@ class SportsCar extends Car {
 // ElectricCar class
 class ElectricCar extends Car {
   int chargingCapacity;
-  double chargingFees;
+  double chargingFees=10;
 
   ElectricCar(int carId, int year, double rentalPricePerDay, bool availability,
-      this.chargingCapacity, this.chargingFees)
+      this.chargingCapacity)
       : super(carId, year, rentalPricePerDay, availability);
 
   @override
@@ -77,12 +70,7 @@ class ElectricCar extends Car {
   @override
   void displayCarDetails() {
     print("""
-    Car ID: $carId
-    Year: $year
-    Rental Price per Day: \$$rentalPricePerDay
-    Availability: $availability
-    Charging Capacity: ${chargingCapacity}
-    Charging Fee: \$$chargingFees
+    Car ID: $carId , Year: $year , Rental Price per Day: \$$rentalPricePerDay , Availability: $availability , Charging Capacity: ${chargingCapacity} , Charging Fee: \$$chargingFees
     """);
   }
 }

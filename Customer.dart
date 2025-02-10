@@ -1,13 +1,21 @@
 import 'Booking.dart';
 class Customer{
-    late int CustomerID;
-    late String Name;
-    late String Phone;
-    late String Email;
-    late String Address;
-    late List<Booking> History;
-  void addBooking(){}
+    int customerID;
+    String name;
+    String phone;
+     String email;
+    String address;
+     List<Booking> History=[];
+     Customer(this.customerID,this.name,this.phone,this.email,this.address);
+ 
   void displayCustomerInfo(){
-
+    print("""Customer : $customerID , Name : $name , phone : $phone , Email : $email , Address : $address """);
+   for (int i = 0; i < History.length; i++) {
+        History[i].displayBookingDetails();
+    }
   }
+
+   void addBooking(Booking b){
+        History.add(b);
+   }
 }
