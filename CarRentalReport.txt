@@ -1,0 +1,11 @@
+ Car Rental Report:
+--------------------------------------------
+Booking ID    : 1
+Customer Name : bosina
+Car ID        : 1
+Car Type      : ElectricCar
+Start Date    : 2025-02-12
+End Date      : 2025-02-15
+Duration      : 3 days
+Total Cost    : $40.00
+--------------------------------------------

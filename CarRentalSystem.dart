@@ -72,6 +72,24 @@ class CarRentalSystem {
   void returnCar() {
     print("Enter Car ID: ");
     int id = int.parse(stdin.readLineSync()!);
+    Booking? booking =searchBook(id);
+     if (booking == null) {
+    print("Booking not found.");
+    return;
+  }
+
+  print("Enter Actual Return Date (yyyy-mm-dd): ");
+  String actualReturnDate = stdin.readLineSync()!;
+
+  DateTime expectedReturn = DateTime.parse(booking.EndDate);
+  DateTime actualReturn = DateTime.parse(actualReturnDate);
+  double lateFee = 0;
+
+   if (actualReturn.isAfter(expectedReturn)) {
+    int lateDays = actualReturn.difference(expectedReturn).inDays;
+    lateFee = lateDays * booking.car.rentalPricePerDay;
+    print("Late return! Additional fee: \$${lateFee.toStringAsFixed(2)}");
+  }
     bool f = false;
     for (int i = 0; i < cars.length; i++) {
       if (cars[i].carId == id) {
@@ -84,8 +102,25 @@ class CarRentalSystem {
       print("Car with ID $id not found.");
     }
 
-    
+    Invoice invoice = Invoice(
+    invoiceID: bookings.length,
+    bookingID: booking.BookingID,
+    customerInfo:booking.customerData,
+    carInfo: booking.car,
+    baseRentalCost: booking.TotalCost,
+    additionalFees: lateFee, 
+  );
+
+  invoice.displayInvoice();
   }
+Booking? searchBook(int bookid){
+     for (var book in bookings) {
+    if (book.BookingID == bookid) {
+      return book;
+    }
+  }
+  return null;
+}  
 Car? searchCarById(int id) {
   for (var car in cars) {
     if (car.carId == id&&car.availability) {
@@ -144,30 +179,23 @@ Customer? searchCustomerById(int id) {
   car.setAvailability(false); 
   bookings.add(newBooking);
 
-   Invoice invoice = Invoice(
-    invoiceID: bookings.length,
-    bookingID: newBooking.BookingID,
-    customerInfo: customer,
-    carInfo: car,
-    baseRentalCost: totalCost,
-    additionalFees: 0, // No late fee at booking
-  );
-
-  invoice.displayInvoice();
+   
 
   print("Booking created successfully with ID ${newBooking.BookingID}.");
 }
 
   void generateReport() {
-    if (bookings.isEmpty) {
-      print("No bookings available.");
-      return;
-    }
+   File file = File("CarRentalReport.txt");
+  StringBuffer report = StringBuffer();
 
-    print(" Car Rental Report:");
-    print("--------------------------------------------");
+  if (bookings.isEmpty) {
+    report.writeln("No bookings available.");
+  } else {
+    report.writeln(" Car Rental Report:");
+    report.writeln("--------------------------------------------");
+
     for (var booking in bookings) {
-      print("""
+      report.writeln("""
 Booking ID    : ${booking.BookingID}
 Customer Name : ${booking.customerData.name}
 Car ID        : ${booking.car.carId}
@@ -176,9 +204,11 @@ Start Date    : ${booking.StartDate}
 End Date      : ${booking.EndDate}
 Duration      : ${booking.RentalDuration} days
 Total Cost    : \$${booking.TotalCost.toStringAsFixed(2)}
---------------------------------------------
-""");
+--------------------------------------------""");
     }
   }
-}
 
+  file.writeAsStringSync(report.toString());
+  print("Report saved to CarRentalReport.txt.");
+}
+}
